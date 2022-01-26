@@ -12,8 +12,8 @@ public class StoreService {
     private final StoreMapper storeMapper;
 
     @Autowired
-    public StoreService(StoreMapper storeRepository) {
-        this.storeMapper = storeRepository;
+    public StoreService(StoreMapper storeMapper) {
+        this.storeMapper = storeMapper;
     }
 
     //제품 전체조회 중간척리

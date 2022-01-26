@@ -5,12 +5,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+            label {
+                display: block;
+            }
+
+            .score-list>li {
+                margin-bottom: 10px;
+            }
+
+            .score-list>li:first-child {
+                font-size: 1.2em;
+                color: blue;
+                font-weight: 700;
+                border-bottom: 1px solid skyblue;
+            }
+
+            .del-btn {
+                width: 10px;
+                height: 10px;
+                background: red;
+                color: #fff;
+                border-radius: 5px;
+                margin-left: 5px;
+                text-decoration: none;
+                font-size: 0.7em;
+                padding: 6px;
+            }
+
+            .del-btn:hover {
+                background: orangered;
+            }
+
+            section.score {
+                /* padding: 200px 50px 100px; */
+                font-size: 1.5em;
+            }
+        </style>
 </head>
 <body>
     <div class="wrap">
 
 
-        <section class="store">
+        <section class="score">
             <h1>제품 등록</h1>
             <form action="/store/register" method="POST">
                 <label>
@@ -32,15 +70,15 @@
             <hr>
 
             <ul class="score-list">
-                <li>총 학생 수: ${scores.size()}명</li>
+                <li>총 제품 수: ${products.size()}개</li>
 
-                <c:forEach var="s" items="${product}">
+                <c:forEach var="p" items="${products}">
                     <li>
-                        # 품번: ${s.productNo}, 제품명: <a href="/store/detail?productNo=${s.productNo}">${s.productName}</a>, 가격:
-                        ${s.price}점,
-                        수량: ${s.amount}점, 총가격: ${s.total}점
+                        # 품번: ${p.productNo}, 제품명: <a href="/store/detail?productNo=${p.productNo}">${p.productName}</a>, 가격:
+                        ${p.price}원,
+                        수량: ${p.amount}개, 총가격: ${p.total}원
 
-                        <a class="del-btn" href="/score/delete?productNo=${s.productNo}">삭제</a>
+                        <a class="del-btn" href="/store/delete?productNo=${p.productNo}">삭제</a>
                     </li>
                 </c:forEach>
             </ul>

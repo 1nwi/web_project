@@ -22,17 +22,17 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    //제품 등록화면 열기
+    //제품 등록화면
     @GetMapping("/store/insert")
     public String insert() {
         return "store/store-list";
     }
 
     //제품 전체조회
-    @GetMapping("/score/list")
+    @GetMapping("/store/list")
     public String list(Model model) {
         List<Product> productList = storeService.findAll();
-        model.addAttribute("product",productList);
+        model.addAttribute("products",productList);
         return "store/store-list";
     }
 
@@ -40,7 +40,7 @@ public class StoreController {
     @PostMapping("/store/register")
     public String register(Product product) {
         storeService.save(product);
-        return "redirect:score/list";
+        return "redirect:/store/list";
     }
 
     //제품 상세보기 요청
@@ -49,6 +49,13 @@ public class StoreController {
         Product product = storeService.findOne(productNo);
         model.addAttribute("product",product);
         return "store/detail";
+    }
+
+    //제품 삭제 처리
+    @GetMapping("store/delete")
+    public String delete(int productNo) {
+        storeService.remove(productNo);
+        return "redirect:/store/list";
     }
 
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.project.manager.repository.ManagerRepository">
+
+    <!--  회원가입 기능  -->
+    <insert id="register">
+        INSERT INTO manager
+        (id, password, manager_name, phone_number, auth)  <!--  DB컬럼명  -->
+        VALUES
+        (#{id}, #{password}, #{name}, #{phoneNumber}, #{auth})   <!--  객체 필드명  -->
+    </insert>
+
+    <resultMap id="managerMap" type="com.spring.project.manager.domain.Manager">
+        <result column="reg_date" property="regDate" />
+    </resultMap>
+
+    <!--  단일 회원 조회기능  -->
+    <select id="findManager" resultMap="managerMap">
+        SELECT * FROM manager WHERE id = #{id}
+    </select>
+
+    <!--  아이디 중복확인 기능  -->
+    <select id="isDuplicateId" resultType="int">
+        SELECT COUNT(*) FROM manager
+        WHERE id = #{inputKeyword}
+    </select>
+
+    <select id="isDuplicatePhone" resultType="int">
+        SELECT COUNT(*) FROM manager
+        WHERE phone_number = #{inputKeyword}
+    </select>
+</mapper>
