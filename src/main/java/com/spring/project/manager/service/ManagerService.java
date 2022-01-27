@@ -29,5 +29,21 @@ public class ManagerService {
         return managerRepository.isDuplicatePhone(phoneNum) == 1;
     }
 
+    //로그인 중간처리
+    public LoginFlag login(String inputId, String inputPw) {
+        Manager manager = managerRepository.findManager(inputId);
+        if(manager != null) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            return encoder.matches(inputPw, manager.getPassword()) ? LoginFlag.SUCCESS : LoginFlag.NO_PW;
+        } else {
+            return LoginFlag.NO_ID;
+        }
+    }
+
+    //회원정보 가져오기
+    public Manager getManager(String id) {
+        return managerRepository.findManager(id);
+    }
+
 
 }
